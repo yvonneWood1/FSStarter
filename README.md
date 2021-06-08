@@ -1,2 +1,3 @@
-# fullStack Example With Promises, ASYNC, RX.JS, TypeScript, Gulp, Browerift, Watchify
- fullStack Dev Test Project
+# fullStack Example 
+ fullStack Dev Test Project:
+ With Promises, ASYNC, RX.JS, TypeScript, Gulp, Browerift, Watchify
