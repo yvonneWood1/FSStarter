@@ -1,4 +1,4 @@
-# fullStack Example 
+# FullStack Project Example 
  fullStack Dev Test Project:
  With Promises, RXJS, TypeScript, Gulp, Browerify, Watchify
  
