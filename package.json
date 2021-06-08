@@ -1,0 +1,49 @@
+{
+  "devDependencies": {
+    "@types/jasmine": "^3.5.10",
+    "babel-preset-es2015": "^6.24.1",
+    "babelify": "^10.0.0",
+    "browserify": "^17.0.0",
+    "fancy-log": "^1.3.3",
+    "gulp": "^4.0.2",
+    "gulp-typescript": "^6.0.0-alpha.1",
+    "html-webpack-plugin": "^4.3.0",
+    "jasmine-core": "^3.5.0",
+    "ts-loader": "^7.0.2",
+    "tsify": "^5.0.4",
+    "typescript": "^4.3.2",
+    "vinyl-source-stream": "^2.0.0",
+    "watchify": "^4.0.0",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3"
+  },
+  "dependencies": {
+    "@types/rx": "^4.1.1",
+    "rxjs": "7.1.0"
+  },
+  "knownSymbols": {
+    "marbles": [
+      {
+        "name": "marbles",
+        "module": "rxjs-marbles/jest",
+        "isDefault": false
+      }
+    ],
+    "map": [
+      {
+        "name": "map",
+        "module": "rxjs/operators",
+        "isDefault": false
+      }
+    ],
+    "sayHello": [
+      {
+        "name": "sayHello",
+        "path": "/home/ashy/workspace/merapar/src/greet.ts",
+        "type": "function",
+        "isDefault": false
+      }
+    ]
+  }
+}

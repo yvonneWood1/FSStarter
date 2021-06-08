@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "noImplicitAny": false,
+    "target": "es5",
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "resolveJsonModule": true
+  },
+  "include": [
+    "./src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts"
+  ],
+  "files": [
+    "./src/main.ts",
+    "./src/greet.ts"
+  ]
+}
