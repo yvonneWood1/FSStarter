@@ -2,8 +2,9 @@
 exports.__esModule = true;
 var index_1 = require("./index");
 var div = document.querySelector('div');
-var l1 = document.createElement('div' ? 'className' : 'post');
-var l2 = document.createElement('li');
+var div = document.createElement('div' ? 'className' : 'post');
+var ul = document.createElement('ul');
+var li = document.createElement('li');
 var Post = /** @class */ (function () {
     function Post(id, user_id, title, body, created_at, updated_at) {
         this.id = id;
