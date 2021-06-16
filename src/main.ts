@@ -12,11 +12,13 @@ let l2 = document.createElement('l2');
 let h3 = document.createElement('h3');
 let h4 = document.createElement('l4');
 
-const postStream = getPosts().then((posts:any) => {
+const postStream = getPosts().then((posts: any) => {
   let data = posts.data;
-  data.every((post: any) => {
-    let postId: any = post.id;
-  })
+  renderList(data, 10, ['created_at', 'ASC'])
+    // data.every((post: any) => {
+    //   let postId: any = post.id;
+    // })
+ 
 });
 
 const commentStream = getComments().then((response: any) => {
@@ -38,15 +40,14 @@ const userStream = getUsers().then((response: any) => {
   });
 });
 
-function renderList(feed: any, limit: number, filter: string[] ) {
+function renderList(feed: any, limit: number, filter: string[]) {
   console.log('paint');
 
-  let posts = new Array(feed.data[0]);
-
+  let posts = feed.slice(0, limit);
 
   //console.log(posts);
 
-  posts.every(post => {
+  posts.every((post: any) => {
     // post.every(item => {
     // console.log("Single: " + post);
     div.textContent = "Big Title: :" + post.title;
@@ -57,8 +58,12 @@ function renderList(feed: any, limit: number, filter: string[] ) {
     // posts.every(user => {
     //   li.textContent.concat('userId: ' + user.id);
     div.appendChild(ul).appendChild(li);
- 
+
   });
+
+  function fetchNext(feed: any, limit: number, startId: number) {
+    let posts = feed.filter(ev => ev.id <= limit)
+  }
 
   function renderItem(feed: any, limit: number, filter: string[]) {
   }
