@@ -6,3 +6,4 @@ src/view/dist/detailList.js
 src/view/dist/dist/detailList.dev.js
 dist/bundle.js
 dist/index.html
+src/dist/main.js
