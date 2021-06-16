@@ -6,8 +6,6 @@ import { getComments, getPosts, getUsers } from './index'
 const div = document.querySelector('div');
 import { postList } from './model/postList';
 
-let ul = document.createElement('ul');
-let li = document.createElement('li');
 let l2 = document.createElement('l2');
 let h3 = document.createElement('h3');
 let h4 = document.createElement('l4');
@@ -15,10 +13,6 @@ let h4 = document.createElement('l4');
 const postStream = getPosts().then((posts: any) => {
   let data = posts.data;
   renderList(data, 10, ['created_at', 'ASC'])
-    // data.every((post: any) => {
-    //   let postId: any = post.id;
-    // })
- 
 });
 
 const commentStream = getComments().then((response: any) => {
@@ -44,30 +38,34 @@ function renderList(feed: any, limit: number, filter: string[]) {
   console.log('paint');
 
   let posts = feed.slice(0, limit);
+  const ul = document.querySelector('ul');
 
   //console.log(posts);
 
-  posts.every((post: any) => {
+
+  posts.forEach((post: any) => {
     // post.every(item => {
     // console.log("Single: " + post);
-    div.textContent = "Big Title: :" + post.title;
-
+    
     // posts.every(comment => {
-    li.textContent = ('Id: :' + post.id + 'Body:' + post.body);
+    let li = document.createElement('li');
+
+    li.textContent = ("Big Title: :" + post.title, 'Id: :' + post.id + 'Body:' + post.body);
 
     // posts.every(user => {
     //   li.textContent.concat('userId: ' + user.id);
-    div.appendChild(ul).appendChild(li);
-
+    ul.appendChild(li);
+    console.log(li.textContent);
   });
+}
 
-  function fetchNext(feed: any, limit: number, startId: number) {
-    let posts = feed.filter(ev => ev.id <= limit)
-  }
 
-  function renderItem(feed: any, limit: number, filter: string[]) {
-  }
+function fetchNext(feed: any, limit: number, startId: number) {
+  let posts = feed.filter(ev => ev.id <= limit)
+}
 
-  function renderDetailed(feed: any, limit: number, filter: string[]) {
-  }
-};
+function renderItem(feed: any, limit: number, filter: string[]) {
+}
+
+function renderDetailed(feed: any, limit: number, filter: string[]) {
+}
