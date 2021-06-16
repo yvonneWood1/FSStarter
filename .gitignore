@@ -1,1 +1,6 @@
 node_modules
+src/model/dist/post.js
+src/model/dist/postList.js
+src/view/dist/detail.js
+src/view/dist/detailList.js
+src/view/dist/dist/detailList.dev.js

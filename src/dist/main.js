@@ -2,59 +2,50 @@
 exports.__esModule = true;
 var index_1 = require("./index");
 var div = document.querySelector('div');
-var div = document.createElement('div' ? 'className' : 'post');
 var ul = document.createElement('ul');
 var li = document.createElement('li');
-var Post = /** @class */ (function () {
-    function Post(id, user_id, title, body, created_at, updated_at) {
-        this.id = id;
-        this.user_id = user_id;
-        this.title = title;
-        this.body = body;
-        this.created_at = created_at;
-        this.updated_at = updated_at;
-    }
-    return Post;
-}());
-;
-index_1.getPosts().then(function (posts) {
-    paint(posts);
-});
-index_1.getComments().then(function (comments) {
-    paint(comments);
-});
-index_1.getUsers().then(function (users) {
-    paint(users);
-});
-// postList = getPosts().then((posts: Promise<any>) :any => {
-//   map(({ user_id }) => user_id),
-//     map(({ title }) => title),
-//     map(({ body }) => body),
-//     map(({ created_at }) => created_at),
-//     map(({ updated_at }) => updated_at)
-//   l1.textContent = posts[0].title;
-//   div.appendChild(l1);
-//   return posts;
-// });
-// const posts = getPosts().then((posts: Promise<any>) => {
-//   posts.
-//     map(({ id }) => id),
-//     map(({ user_id }) => user_id),
-//     map(({ title }) => title),
-//     map(({ body }) => body),
-//     map(({ created_at }) => created_at),
-//     map(({ updated_at }) => updated_at)
-// });
-function paint(feed) {
-    console.log('paint');
-    var posts = new Array(feed.data);
-    console.log(posts);
-    posts.every(function (post) {
-        post.every(function (postItem) {
-            l1.textContent = "Title: :" + postItem.title;
-            div.appendChild(l1);
-            l2.textContent = ('Body:' + postItem.body);
-            l1.appendChild(l2);
-        });
+var l2 = document.createElement('l2');
+var h3 = document.createElement('h3');
+var h4 = document.createElement('l4');
+var postStream = index_1.getPosts().then(function (posts) {
+    var data = posts.data;
+    data.every(function (post) {
+        var postId = post.id;
     });
+});
+var commentStream = index_1.getComments().then(function (response) {
+    var comments = response.data;
+    comments.every(function (comment) {
+        var postCommentId = comment.postId;
+        var postCommentUserId = comment.userId;
+        //comments.pipe(filter(ev => postCommentId === postId));
+    });
+});
+var userStream = index_1.getUsers().then(function (response) {
+    var users = response.data;
+    users.every(function (user) {
+        var userId = user.id;
+        // users.pipe(filter(ev => userId === postCommentUserId));
+        // users.subscribe(userId => console.log("userId:", userId));
+    });
+});
+function renderList(feed, limit, filter) {
+    console.log('paint');
+    var posts = new Array(feed.data[0]);
+    //console.log(posts);
+    posts.every(function (post) {
+        // post.every(item => {
+        // console.log("Single: " + post);
+        div.textContent = "Big Title: :" + post.title;
+        // posts.every(comment => {
+        li.textContent = ('Id: :' + post.id + 'Body:' + post.body);
+        // posts.every(user => {
+        //   li.textContent.concat('userId: ' + user.id);
+        div.appendChild(ul).appendChild(li);
+    });
+    function renderItem(feed, limit, filter) {
+    }
+    function renderDetailed(feed, limit, filter) {
+    }
 }
+;
