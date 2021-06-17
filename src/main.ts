@@ -20,7 +20,6 @@ const commentStream = getComments().then((response: any) => {
   comments.every((comment: any) => {
     let postCommentId: any = comment.postId;
     let postCommentUserId = comment.userId;
-
     //comments.pipe(filter(ev => postCommentId === postId));
   });
 });
@@ -35,30 +34,35 @@ const userStream = getUsers().then((response: any) => {
 });
 
 function renderList(feed: any, limit: number, filter: string[]) {
-  console.log('paint');
-
   let posts = feed.slice(0, limit);
   const ul = document.querySelector('ul');
 
-  //console.log(posts);
-
-
   posts.forEach((post: any) => {
-    // post.every(item => {
-    // console.log("Single: " + post);
-    
-    // posts.every(comment => {
     let li = document.createElement('li');
-
     li.textContent = ("Big Title: :" + post.title, 'Id: :' + post.id + 'Body:' + post.body);
-
-    // posts.every(user => {
-    //   li.textContent.concat('userId: ' + user.id);
+    let thumbnail = document.createElement('img');
+    thumbnail.src = './images/neutral.png';
+    li.appendChild(thumbnail);
     ul.appendChild(li);
-    console.log(li.textContent);
   });
 }
 
+
+// TODO: Achieve this Mark up pattern for List
+// <li>
+//     <a href="#" class="inner">
+//       <div class="li-img">
+//         <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/12005/balloon-sq1.jpg" alt="Hot air balloons" />
+//       </div>
+//       <div class="li-text">
+//         <h3 class="li-head">Title of Content</h3>
+//         <div class="li-sub">
+//           <p>Summary of content.</p>
+//         </div>
+//       </div>
+//     </a>
+//   </li>
+//   <li>
 
 function fetchNext(feed: any, limit: number, startId: number) {
   let posts = feed.filter(ev => ev.id <= limit)
