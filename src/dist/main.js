@@ -2,16 +2,12 @@
 exports.__esModule = true;
 var index_1 = require("./index");
 var div = document.querySelector('div');
-var ul = document.createElement('ul');
-var li = document.createElement('li');
 var l2 = document.createElement('l2');
 var h3 = document.createElement('h3');
 var h4 = document.createElement('l4');
 var postStream = index_1.getPosts().then(function (posts) {
     var data = posts.data;
-    data.every(function (post) {
-        var postId = post.id;
-    });
+    renderList(data, 10, ['created_at', 'ASC']);
 });
 var commentStream = index_1.getComments().then(function (response) {
     var comments = response.data;
@@ -30,22 +26,36 @@ var userStream = index_1.getUsers().then(function (response) {
     });
 });
 function renderList(feed, limit, filter) {
-    console.log('paint');
-    var posts = new Array(feed.data[0]);
-    //console.log(posts);
-    posts.every(function (post) {
-        // post.every(item => {
-        // console.log("Single: " + post);
-        div.textContent = "Big Title: :" + post.title;
-        // posts.every(comment => {
-        li.textContent = ('Id: :' + post.id + 'Body:' + post.body);
-        // posts.every(user => {
-        //   li.textContent.concat('userId: ' + user.id);
-        div.appendChild(ul).appendChild(li);
+    var posts = feed.slice(0, limit);
+    var ul = document.querySelector('ul');
+    posts.forEach(function (post) {
+        var li = document.createElement('li');
+        li.textContent = ("Big Title: :" + post.title, 'Id: :' + post.id + 'Body:' + post.body);
+        var thumbnail = document.createElement('img');
+        thumbnail.src = './images/neutral.png';
+        li.appendChild(thumbnail);
+        ul.appendChild(li);
     });
-    function renderItem(feed, limit, filter) {
-    }
-    function renderDetailed(feed, limit, filter) {
-    }
 }
-;
+// TODO: Achieve this Mark up pattern for List
+// <li>
+//     <a href="#" class="inner">
+//       <div class="li-img">
+//         <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/12005/balloon-sq1.jpg" alt="Hot air balloons" />
+//       </div>
+//       <div class="li-text">
+//         <h3 class="li-head">Title of Content</h3>
+//         <div class="li-sub">
+//           <p>Summary of content.</p>
+//         </div>
+//       </div>
+//     </a>
+//   </li>
+//   <li>
+function fetchNext(feed, limit, startId) {
+    var posts = feed.filter(function (ev) { return ev.id <= limit; });
+}
+function renderItem(feed, limit, filter) {
+}
+function renderDetailed(feed, limit, filter) {
+}
