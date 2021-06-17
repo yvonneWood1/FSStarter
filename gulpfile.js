@@ -7,7 +7,8 @@ var tsify = require("tsify");
 var fancy_log = require("fancy-log");
 
 var paths = {
-  pages: ["src/*.html"]
+  pages: ["src/*.html"],
+  images: ["src/images/*"]
 };
 
 var watchedBrowserify = watchify(
@@ -34,9 +35,9 @@ gulp.task("copy-html", function () {
   return gulp.src(paths.pages).pipe(gulp.dest("dist"));
 });
 
-// gulp.task("copy-data", function () {
-//   return gulp.src(paths.data).pipe(gulp.dest("dist"));
-// });
+gulp.task("copy-images", function () {
+  return gulp.src(paths.images).pipe(gulp.dest("dist/images/"));
+});
 
 function bundle() {
   return watchedBrowserify
@@ -46,6 +47,6 @@ function bundle() {
     .pipe(gulp.dest("dist"));
 }
 
-gulp.task("default", gulp.series(gulp.parallel("copy-html"), bundle));
+gulp.task("default", gulp.series(gulp.parallel("copy-html", "copy-images"), bundle));
 watchedBrowserify.on("update", bundle);
 watchedBrowserify.on("log", fancy_log);

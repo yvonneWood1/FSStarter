@@ -47,7 +47,6 @@ function renderList(feed: any, limit: number, filter: string[]) {
   });
 }
 
-
 // TODO: Achieve this Mark up pattern for List
 // <li>
 //     <a href="#" class="inner">
