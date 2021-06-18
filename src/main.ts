@@ -49,10 +49,15 @@ function renderList(feed: any, limit: number, filter: string[]) {
     thumbnail.className = 'li-img';
     thumbnail.src = './images/neutral.png';
 
+    li.className = 'list';
+
     listTitle.textContent = "Big Title: :" + post.title;
-    li.textContent = 'Id: :' + post.id;
-    listDivInner.appendChild(listTitle).appendChild(listBody).textContent = 'Body:' + post.body;
-    listDivInner.appendChild(listBody).textContent = 'Body:' + post.body;
+    listBody.textContent = 'Body:' + post.body;
+    listTitle.className = 'li-head';
+    listBody.className = 'li-sub';
+
+    listDivInner.appendChild(listTitle);
+    listDivInner.appendChild(listBody);
     listLink.href = 'detail.js?post.id= ' + post.id;
 
     li.appendChild(listLink).appendChild(listDiv).appendChild(thumbnail);

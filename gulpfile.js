@@ -8,7 +8,8 @@ var fancy_log = require("fancy-log");
 
 var paths = {
   pages: ["src/*.html"],
-  images: ["src/images/*"]
+  images: ["src/images/*"],
+  styles: ["src/*.css"]
 };
 
 var watchedBrowserify = watchify(
@@ -16,6 +17,7 @@ var watchedBrowserify = watchify(
     basedir: ".",
     debug: true,
     entries: ["src/main.ts"],
+    css:["src/styles.ts"],
     cache: {},
     packageCache: {},
   }).plugin(tsify)
@@ -39,6 +41,10 @@ gulp.task("copy-images", function () {
   return gulp.src(paths.images).pipe(gulp.dest("dist/images/"));
 });
 
+gulp.task("copy-styles", function () {
+  return gulp.src(paths.styles).pipe(gulp.dest("dist"));
+});
+
 function bundle() {
   return watchedBrowserify
     .bundle()
@@ -47,6 +53,6 @@ function bundle() {
     .pipe(gulp.dest("dist"));
 }
 
-gulp.task("default", gulp.series(gulp.parallel("copy-html", "copy-images"), bundle));
+gulp.task("default", gulp.series(gulp.parallel("copy-html", "copy-images", "copy-styles"), bundle));
 watchedBrowserify.on("update", bundle);
 watchedBrowserify.on("log", fancy_log);
