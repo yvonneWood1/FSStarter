@@ -52,7 +52,8 @@ function renderList(feed: any, limit: number, filter: string[]) {
     listDivInner.appendChild(listTitle);
 
 
-    li.appendChild(listLink).appendChild(listDiv).appendChild(thumbnail).append(listDivInner);
+    li.appendChild(listLink).appendChild(listDiv).appendChild(thumbnail);
+    li.appendChild(listDivInner);
     ul.appendChild(li);
   });
 }

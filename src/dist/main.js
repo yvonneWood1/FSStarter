@@ -2,9 +2,6 @@
 exports.__esModule = true;
 var index_1 = require("./index");
 var div = document.querySelector('div');
-var l2 = document.createElement('l2');
-var h3 = document.createElement('h3');
-var h4 = document.createElement('l4');
 var postStream = index_1.getPosts().then(function (posts) {
     var data = posts.data;
     renderList(data, 10, ['created_at', 'ASC']);
@@ -30,10 +27,20 @@ function renderList(feed, limit, filter) {
     var ul = document.querySelector('ul');
     posts.forEach(function (post) {
         var li = document.createElement('li');
-        li.textContent = ("Big Title: :" + post.title, 'Id: :' + post.id + 'Body:' + post.body);
+        var listDiv = document.createElement('div');
+        var listDivInner = document.createElement('div');
+        var listbody = document.createElement('p');
+        var listTitle = document.createElement('h3');
+        var listLink = document.createElement('a');
         var thumbnail = document.createElement('img');
         thumbnail.src = './images/neutral.png';
-        li.appendChild(thumbnail);
+        listTitle.textContent = "Big Title: :" + post.title;
+        li.textContent = 'Id: :' + post.id;
+        listDivInner.textContent = 'Body:' + post.body;
+        listLink.href = 'detail.js?post.id= ' + post.id;
+        listDivInner.appendChild(listTitle);
+        li.appendChild(listLink).appendChild(listDiv).appendChild(thumbnail);
+        li.appendChild(listDivInner);
         ul.appendChild(li);
     });
 }
