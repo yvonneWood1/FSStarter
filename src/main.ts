@@ -40,13 +40,17 @@ function renderList(feed: any, limit: number, filter: string[]) {
     let listbody = document.createElement('p');
     let listTitle = document.createElement('h3');
     let listLink = document.createElement('a');
+
     let thumbnail = document.createElement('img');
     thumbnail.src = './images/neutral.png';
 
     listTitle.textContent = "Big Title: :" + post.title;
-    li.textContent = ( 'Id: :' + post.id + );
-    listbody.textContent = 'Body:' + post.body;
+    li.textContent = 'Id: :' + post.id;
+    listDivInner.textContent = 'Body:' + post.body;
     listLink.href = 'detail.js?post.id= ' + post.id;
+  
+    listDivInner.appendChild(listTitle);
+
 
     li.appendChild(listLink).appendChild(listDiv).appendChild(thumbnail).append(listDivInner);
     ul.appendChild(li);
