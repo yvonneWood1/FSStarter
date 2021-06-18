@@ -22,6 +22,9 @@ var userStream = index_1.getUsers().then(function (response) {
         // users.subscribe(userId => console.log("userId:", userId));
     });
 });
+//TODO : pagination, detailView, summary Data. e.g. number of posts
+//TODO: logic to get female or male avatar/ based on userfeed data
+//TODO: Loading messahe- replace with spinner and remove after render
 function renderList(feed, limit, filter) {
     var posts = feed.slice(0, limit);
     var ul = document.querySelector('ul');
@@ -29,16 +32,17 @@ function renderList(feed, limit, filter) {
         var li = document.createElement('li');
         var listDiv = document.createElement('div');
         var listDivInner = document.createElement('div');
-        var listbody = document.createElement('p');
+        var listBody = document.createElement('p');
         var listTitle = document.createElement('h3');
         var listLink = document.createElement('a');
         var thumbnail = document.createElement('img');
+        thumbnail.className = 'li-img';
         thumbnail.src = './images/neutral.png';
         listTitle.textContent = "Big Title: :" + post.title;
         li.textContent = 'Id: :' + post.id;
-        listDivInner.textContent = 'Body:' + post.body;
+        listDivInner.appendChild(listTitle).appendChild(listBody).textContent = 'Body:' + post.body;
+        listDivInner.appendChild(listBody).textContent = 'Body:' + post.body;
         listLink.href = 'detail.js?post.id= ' + post.id;
-        listDivInner.appendChild(listTitle);
         li.appendChild(listLink).appendChild(listDiv).appendChild(thumbnail);
         li.appendChild(listDivInner);
         ul.appendChild(li);

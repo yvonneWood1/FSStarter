@@ -29,6 +29,10 @@ const userStream = getUsers().then((response: any) => {
   });
 });
 
+//TODO : pagination, detailView, summary Data. e.g. number of posts
+//TODO: logic to get female or male avatar/ based on userfeed data
+//TODO: Loading messahe- replace with spinner and remove after render
+
 function renderList(feed: any, limit: number, filter: string[]) {
   let posts = feed.slice(0, limit);
   const ul = document.querySelector('ul');
@@ -37,20 +41,19 @@ function renderList(feed: any, limit: number, filter: string[]) {
     let li = document.createElement('li');
     let listDiv = document.createElement('div');
     let listDivInner = document.createElement('div');
-    let listbody = document.createElement('p');
+    let listBody = document.createElement('p');
     let listTitle = document.createElement('h3');
     let listLink = document.createElement('a');
 
     let thumbnail = document.createElement('img');
+    thumbnail.className = 'li-img';
     thumbnail.src = './images/neutral.png';
 
     listTitle.textContent = "Big Title: :" + post.title;
     li.textContent = 'Id: :' + post.id;
-    listDivInner.textContent = 'Body:' + post.body;
+    listDivInner.appendChild(listTitle).appendChild(listBody).textContent = 'Body:' + post.body;
+    listDivInner.appendChild(listBody).textContent = 'Body:' + post.body;
     listLink.href = 'detail.js?post.id= ' + post.id;
-  
-    listDivInner.appendChild(listTitle);
-
 
     li.appendChild(listLink).appendChild(listDiv).appendChild(thumbnail);
     li.appendChild(listDivInner);
@@ -73,6 +76,7 @@ function renderList(feed: any, limit: number, filter: string[]) {
 //     </a>
 //   </li>
 //   <li>
+
 
 function fetchNext(feed: any, limit: number, startId: number) {
   let posts = feed.filter(ev => ev.id <= limit)
