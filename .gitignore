@@ -11,3 +11,7 @@ src/dist/main.js
 dist/bundle.js
 dist/index.html
 src/dist/main.js
+dist/bundle.js
+dist/gulpfile.dev.js
+dist/index.html
+dist/styles.css

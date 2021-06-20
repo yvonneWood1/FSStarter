@@ -6,9 +6,13 @@ import { getComments, getPosts, getUsers } from './index'
 const div = document.querySelector('div');
 import { postList } from './model/postList';
 
+let start: number = 0;
+let limit: number = 10;
+
 const postStream = getPosts().then((posts: any) => {
   let data = posts.data;
-  renderList(data, 10, ['created_at', 'ASC'])
+  limit = posts.limit;
+  renderList(data, start, limit, ['created_at', 'ASC'])
 });
 
 const commentStream = getComments().then((response: any) => {
@@ -32,9 +36,12 @@ const userStream = getUsers().then((response: any) => {
 //TODO : pagination, detailView, summary Data. e.g. number of posts
 //TODO: logic to get female or male avatar/ based on userfeed data
 
-function renderList(feed: any, limit: number, filter: string[]) {
-  let posts = feed.slice(0, limit);
-  const spinner = document.querySelector('#spinner >div');
+function renderList(feed: any, start: number, limit: number, filter: string[]) {
+
+  if (!start) { start = 0 };
+
+  let posts = feed.slice(start, limit);
+  const spinner = document.querySelector('#spinner');
   const ul = document.querySelector('ul');
   ul.className = 'list img-list';
 
@@ -66,13 +73,17 @@ function renderList(feed: any, limit: number, filter: string[]) {
     li.appendChild(listLink).appendChild(listDiv).appendChild(thumbnail).append(listDivInner);
     listLink.appendChild(listDivInner);
     ul.appendChild(li);
-    
+
   });
 
   spinner.remove();
 }
 
-function fetchNext(action:string, feed: any, limit: number, startId: number) {
+function fetchNext( feed: any, limit: number, startId: number) {
+  let posts = feed.filter(ev => ev.id <= limit)
+}
+
+function fetcPrev( feed: any, limit: number, startId: number) {
   let posts = feed.filter(ev => ev.id <= limit)
 }
 
