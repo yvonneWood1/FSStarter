@@ -31,16 +31,18 @@ const userStream = getUsers().then((response: any) => {
 
 //TODO : pagination, detailView, summary Data. e.g. number of posts
 //TODO: logic to get female or male avatar/ based on userfeed data
-//TODO: Loading messahe- replace with spinner and remove after render
 
 function renderList(feed: any, limit: number, filter: string[]) {
   let posts = feed.slice(0, limit);
+  const spinner = document.querySelector('#spinner >div');
   const ul = document.querySelector('ul');
+  ul.className = 'list img-list';
 
   posts.forEach((post: any) => {
     let li = document.createElement('li');
     let listDiv = document.createElement('div');
     let listDivInner = document.createElement('div');
+    let listDivSub = document.createElement('div');
     let listBody = document.createElement('p');
     let listTitle = document.createElement('h3');
     let listLink = document.createElement('a');
@@ -54,36 +56,23 @@ function renderList(feed: any, limit: number, filter: string[]) {
     listTitle.textContent = "Big Title: :" + post.title;
     listBody.textContent = 'Body:' + post.body;
     listTitle.className = 'li-head';
-    listBody.className = 'li-sub';
+    listDivSub.className = 'li-sub';
+    listDivInner.className = 'li.text'
 
     listDivInner.appendChild(listTitle);
-    listDivInner.appendChild(listBody);
+    listDivInner.appendChild(listDivSub).appendChild(listBody);
     listLink.href = 'detail.js?post.id= ' + post.id;
 
-    li.appendChild(listLink).appendChild(listDiv).appendChild(thumbnail);
-    li.appendChild(listDivInner);
+    li.appendChild(listLink).appendChild(listDiv).appendChild(thumbnail).append(listDivInner);
+    listLink.appendChild(listDivInner);
     ul.appendChild(li);
+    
   });
+
+  spinner.remove();
 }
 
-// TODO: Achieve this Mark up pattern for List
-// <li>
-//     <a href="#" class="inner">
-//       <div class="li-img">
-//         <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/12005/balloon-sq1.jpg" alt="Hot air balloons" />
-//       </div>
-//       <div class="li-text">
-//         <h3 class="li-head">Title of Content</h3>
-//         <div class="li-sub">
-//           <p>Summary of content.</p>
-//         </div>
-//       </div>
-//     </a>
-//   </li>
-//   <li>
-
-
-function fetchNext(feed: any, limit: number, startId: number) {
+function fetchNext(action:string, feed: any, limit: number, startId: number) {
   let posts = feed.filter(ev => ev.id <= limit)
 }
 
