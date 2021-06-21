@@ -36,28 +36,34 @@ const userStream = getUsers().then((response: any) => {
 //TODO : pagination, detailView, summary Data. e.g. number of posts
 //TODO: logic to get female or male avatar/ based on userfeed data
 
-
 function renderList(feed: any, start: number, limit: number, filter: string[]) {
-  const spinner = document.querySelector('#spinner');  
-  renderItems(feed);
-  spinner.remove();
-}  
-
-function fetchNext( feed: any, limit: number, startId: number) {
-  let posts = feed.filter(ev => ev.id <= limit)
+  const spinner = document.querySelector('#spinner');
+  
+  if (feed && feed.length) {
+    renderItems(feed);
+  }
+  
+  if (spinner) {
+    spinner.remove();
+  }
 }
 
-function fetcPrev( feed: any, limit: number, startId: number) {
-  let posts = feed.filter(ev => ev.id <= limit)
+function fetchNext(feed: any, lastOut: number, limit: number) {
+  start = lastOut + 1;
+  renderList(feed, start, limit, ['created_at', 'ASC'])
+};
+
+function fetcPrev(feed: any, firstOut: number, limit: number) {
+  start = (firstOut - 10 >0)? firstOut: 1;  
+  renderList(feed, start, limit, ['created_at', 'ASC'])
 }
 
 function renderItems(feed: any) {
 
-  const ul = document.querySelector('ul');
-  ul.className = 'list img-list';
+  const ul = document.querySelector('ul.img-list');
   // Clear any prev items from list
   ul.innerHTML = "";
-  
+
   if (!start) { start = 0 };
   if (!limit) { limit = 10 };
   let posts = feed.slice(start, limit);
@@ -93,5 +99,5 @@ function renderItems(feed: any) {
   });
 };
 
-function renderDetailed(feed: any, limit: number, filter: string[]) {
+function renderDetailed(feed: any, start:number, limit: number, filter: string[]) {
 }

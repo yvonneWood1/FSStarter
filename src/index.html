@@ -1,21 +1,42 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8"/>
-    <meta content="Full Stack Test, Rx.js, json, TypeScript, List, Pagination" name="keywords"/>
-    <link rel="stylesheet" href="styles.css?rand=23443542" no-cache = "true">
-    <title>Full Stack FE Developer Test</title>    
-  </head>
-  <body>
-    <div>
-        <div id="spinner">Loading posts...</div>
-        <div class="summary"></div>
-        <div class="topNav"></div>
-        <div class="list">
-          <ul></ul>
-        </div>
-        <div class="bottomNav"></div>
-        <script src="bundle.js"></script>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta content="Full Stack Test, Rx.js, json, TypeScript, List, Pagination" name="keywords" />
+  <link rel="stylesheet" href="styles.css?rand=23443542" no-cache="true">
+  <link rel="stylesheet" href="bootstrap.min.css">
+  <title>Full Stack FE Developer Example</title>
+</head>
+
+<body>
+  <div>
+    <nav class="navbar fixed-top navbar-light bg-light">
+      <div class="container-fluid">
+        <nav aria-label="...">
+          <ul class="pagination">
+            <li class="page-item disabled">
+              <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item active" aria-current="page">
+              <a class="page-link" href="#">2</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+              <a class="page-link" href="#">Next</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </nav>
+    <div id="spinner">Loading posts...</div>
+    <!-- Post lists will appear inside targeted ul -->
+    <div class="list">
+      <ul class="img-list"></ul>
     </div>
-  </body>
+    <script src="bundle.js"></script>
+  </div>
+</body>
+
 </html>

@@ -28,14 +28,36 @@ var userStream = index_1.getUsers().then(function (response) {
 //TODO : pagination, detailView, summary Data. e.g. number of posts
 //TODO: logic to get female or male avatar/ based on userfeed data
 function renderList(feed, start, limit, filter) {
+    var spinner = document.querySelector('#spinner');
+    if (feed && feed.length) {
+        renderItems(feed);
+    }
+    if (spinner) {
+        spinner.remove();
+    }
+}
+function fetchNext(feed, lastOut, limit) {
+    start = lastOut + 1;
+    renderList(feed, start, limit, ['created_at', 'ASC']);
+}
+;
+function fetcPrev(feed, firstOut, limit) {
+    start = (firstOut - 10 > 0) ? firstOut : 1;
+    renderList(feed, start, limit, ['created_at', 'ASC']);
+}
+function renderItems(feed) {
+    var ul = document.querySelector('ul.img-list');
+    // Clear any prev items from list
+    ul.innerHTML = "";
     if (!start) {
         start = 0;
     }
     ;
+    if (!limit) {
+        limit = 10;
+    }
+    ;
     var posts = feed.slice(start, limit);
-    var spinner = document.querySelector('#spinner');
-    var ul = document.querySelector('ul');
-    ul.className = 'list img-list';
     posts.forEach(function (post) {
         var li = document.createElement('li');
         var listDiv = document.createElement('div');
@@ -60,15 +82,7 @@ function renderList(feed, start, limit, filter) {
         listLink.appendChild(listDivInner);
         ul.appendChild(li);
     });
-    spinner.remove();
 }
-function fetchNext(feed, limit, startId) {
-    var posts = feed.filter(function (ev) { return ev.id <= limit; });
-}
-function fetcPrev(feed, limit, startId) {
-    var posts = feed.filter(function (ev) { return ev.id <= limit; });
-}
-function renderItem(feed, limit, filter) {
-}
-function renderDetailed(feed, limit, filter) {
+;
+function renderDetailed(feed, start, limit, filter) {
 }
