@@ -1,25 +1,23 @@
-import { delay, filter, map, reduce, switchMap } from 'rxjs/operators';
-import { Observable, ReplaySubject, Subscriber, using } from 'rxjs';
-// import the fromEvent operator
-import { fromEvent, toEvent } from 'rxjs';
-
-// grab button reference
-const nextLink = document.querySelector('#next');
-
-// create an observable of button clicks
-const nextClick = fromEvent(nextLink, 'click');
-const next = toEvent(nextLink, 'fetchNext');
-
-// for now, let's just log the event on each click
-const subscription = myObservable.subscribe(event => console.log(event));
-
+import { fromEvent } from 'rxjs';
 import { getComments, getPosts, getUsers } from './index'
-
-const div = document.querySelector('div');
-import { postList } from './model/postList';
 
 let start: number = 0;
 let limit: number = 10;
+
+// grab DOM elements
+const nextLink = document.querySelector('#next');
+// create an observable of link click
+const nextClick = fromEvent(nextLink, 'click');
+// subscribe to event and fetch next 10 from stream on click
+
+const subscription = nextClick.subscribe({
+  // on successful emissions
+  next: () => renderList(postStream, start, limit, ['created_at', 'ASC']),
+  // on errors
+  error: error => console.log(error),
+  // called once on completion
+  complete: () => console.log('complete!')
+});
 
 const postStream = getPosts().then((posts: any) => {
   let data = posts.data;
@@ -50,11 +48,11 @@ const userStream = getUsers().then((response: any) => {
 
 function renderList(feed: any, start: number, limit: number, filter: string[]) {
   const spinner = document.querySelector('#spinner');
-  
+
   if (feed && feed.length) {
-    renderItems(feed);
+    renderItems(feed, start, limit);
   }
-  
+
   if (spinner) {
     spinner.remove();
   }
@@ -66,11 +64,11 @@ function fetchNext(feed: any, lastOut: number, limit: number) {
 };
 
 function fetcPrev(feed: any, firstOut: number, limit: number) {
-  start = (firstOut - 10 >0)? firstOut: 1;  
+  start = (firstOut - 10 > 0) ? firstOut : 1;
   renderList(feed, start, limit, ['created_at', 'ASC'])
 }
 
-function renderItems(feed: any) {
+function renderItems(feed: any, start: number, limit: number) {
 
   const ul = document.querySelector('ul.img-list');
   // Clear any prev items from list
@@ -111,5 +109,5 @@ function renderItems(feed: any) {
   });
 };
 
-function renderDetailed(feed: any, start:number, limit: number, filter: string[]) {
+function renderDetailed(feed: any, start: number, limit: number, filter: string[]) {
 }
