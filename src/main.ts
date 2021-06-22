@@ -7,8 +7,8 @@ import { fromEvent, toEvent } from 'rxjs';
 const nextLink = document.querySelector('#next');
 
 // create an observable of button clicks
-const myObservable = fromEvent(nextLink, 'click');
-const myObservable = toEvent(nextLink, 'fetchNext');
+const nextClick = fromEvent(nextLink, 'click');
+const next = toEvent(nextLink, 'fetchNext');
 
 // for now, let's just log the event on each click
 const subscription = myObservable.subscribe(event => console.log(event));
