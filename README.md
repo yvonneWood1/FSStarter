@@ -21,6 +21,7 @@ I use **local-web-server**
 https://www.npmjs.com/package/local-web-server
 
 **UX Sceenshot**
-![image](https://user-images.githubusercontent.com/85294619/122978212-2b49b680-d38e-11eb-921c-16fd0f81c30d.png)
+![image](https://user-images.githubusercontent.com/85294619/122978331-4fa59300-d38e-11eb-9958-b49b9f216333.png)
+
 
  
