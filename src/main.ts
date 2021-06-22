@@ -1,5 +1,17 @@
 import { delay, filter, map, reduce, switchMap } from 'rxjs/operators';
 import { Observable, ReplaySubject, Subscriber, using } from 'rxjs';
+// import the fromEvent operator
+import { fromEvent, toEvent } from 'rxjs';
+
+// grab button reference
+const nextLink = document.querySelector('#next');
+
+// create an observable of button clicks
+const myObservable = fromEvent(nextLink, 'click');
+const myObservable = toEvent(nextLink, 'fetchNext');
+
+// for now, let's just log the event on each click
+const subscription = myObservable.subscribe(event => console.log(event));
 
 import { getComments, getPosts, getUsers } from './index'
 
