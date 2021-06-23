@@ -22,11 +22,12 @@ let start = postModel.start;
 let limit = postModel.limit;
 let filter = postModel.filter;
 let nextStart = start + limit as number;
+let feedData: any = undefined;
 
 const postStream = getPosts().then((posts: any) => {
-  let data = posts.data;
+  feedData = posts.data;
   limit = posts.limit;
-  renderList(data, start, limit, ['created_at', 'ASC'])
+  renderList(feedData, start, limit, ['created_at', 'ASC'])
 });
 
 const commentStream = getComments().then((comments: any) => {
@@ -50,7 +51,7 @@ const userStream = getUsers().then((users: any) => {
 const subscription = nextClick.subscribe({
   // on successful emissions
   next: () => {    
-    fetchNext(postStream, nextStart, limit, filter);
+    fetchNext(feedData, nextStart, limit, filter);
     // console.log('nextStart:' + nextStart);
     nextStart += limit;
     // console.log('nextNextStart:' + nextStart);
@@ -106,7 +107,7 @@ function renderItems(feed: any, start: number, limit: number) {
 
     li.className = 'list';
 
-    listTitle.textContent = "Big Title: :" + post.title;
+    listTitle.textContent = "Big Title"  + post.id , ":" + post.title;
     listBody.textContent = 'Body:' + post.body;
     listTitle.className = 'li-head';
     listDivSub.className = 'li-sub';
