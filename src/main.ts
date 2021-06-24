@@ -23,10 +23,13 @@ let limit = postModel.limit;
 let filter = postModel.filter;
 let nextStart = start + limit as number;
 let feedData: any = undefined;
+let feedMeta: any = undefined;
 
 const postStream = getPosts().then((posts: any) => {
   feedData = posts.data;
-  limit = posts.limit;
+  feedMeta = posts.meta;
+  limit = feedMeta.pagination.limit;
+  start = feedMeta.pagination.page - 1;
   renderList(feedData, start, limit, ['created_at', 'ASC'])
 });
 
@@ -50,7 +53,7 @@ const userStream = getUsers().then((users: any) => {
 
 const subscription = nextClick.subscribe({
   // on successful emissions
-  next: () => {    
+  next: () => {
     fetchNext(feedData, nextStart, limit, filter);
     // console.log('nextStart:' + nextStart);
     nextStart += limit;
@@ -67,7 +70,7 @@ const subscription = nextClick.subscribe({
 
 function renderList(feed: any, start: number, limit: number, filter: string[]) {
   const spinner = document.querySelector('#spinner');
-  
+
   renderItems(feed, start, limit);
 
   if (spinner) {
@@ -75,11 +78,11 @@ function renderList(feed: any, start: number, limit: number, filter: string[]) {
   }
 }
 
-function fetchNext(feed: any, start: number, limit: number, filter:any) {
+function fetchNext(feed: any, start: number, limit: number, filter: any) {
   renderList(feed, start, limit, filter)
 };
 
-function fetcPrev(feed: any, firstOut: number, limit: number, filter:any) {
+function fetcPrev(feed: any, firstOut: number, limit: number, filter: any) {
   start = (firstOut - limit > 0) ? firstOut : 1;
   renderList(feed, start, limit, filter);
 }
@@ -90,36 +93,38 @@ function renderItems(feed: any, start: number, limit: number) {
   // Clear any prev items from list
   ul.innerHTML = "";
 
-  let posts = feed.slice(start, limit);
+  let posts = feed;
 
   posts.forEach((post: any) => {
-    let li = document.createElement('li');
-    let listDiv = document.createElement('div');
-    let listDivInner = document.createElement('div');
-    let listDivSub = document.createElement('div');
-    let listBody = document.createElement('p');
-    let listTitle = document.createElement('h3');
-    let listLink = document.createElement('a');
+    if (post.id >= start && post.id <= start + limit) {
+      let li = document.createElement('li');
+      let listDiv = document.createElement('div');
+      let listDivInner = document.createElement('div');
+      let listDivSub = document.createElement('div');
+      let listBody = document.createElement('p');
+      let listTitle = document.createElement('h3');
+      let listLink = document.createElement('a');
 
-    let thumbnail = document.createElement('img');
-    thumbnail.className = 'li-img';
-    thumbnail.src = './images/neutral.png';
+      let thumbnail = document.createElement('img');
+      thumbnail.className = 'li-img';
+      thumbnail.src = './images/neutral.png';
 
-    li.className = 'list';
+      li.className = 'list';
 
-    listTitle.textContent = "Big Title"  + post.id , ":" + post.title;
-    listBody.textContent = 'Body:' + post.body;
-    listTitle.className = 'li-head';
-    listDivSub.className = 'li-sub';
-    listDivInner.className = 'li.text'
+      listTitle.textContent = "Big Title" + post.id, ":" + post.title;
+      listBody.textContent = 'Body:' + post.body;
+      listTitle.className = 'li-head';
+      listDivSub.className = 'li-sub';
+      listDivInner.className = 'li.text'
 
-    listDivInner.appendChild(listTitle);
-    listDivInner.appendChild(listDivSub).appendChild(listBody);
-    listLink.href = 'detail.js?post.id= ' + post.id;
+      listDivInner.appendChild(listTitle);
+      listDivInner.appendChild(listDivSub).appendChild(listBody);
+      listLink.href = 'detail.js?post.id= ' + post.id;
 
-    li.appendChild(listLink).appendChild(listDiv).appendChild(thumbnail).append(listDivInner);
-    listLink.appendChild(listDivInner);
-    ul.appendChild(li);
+      li.appendChild(listLink).appendChild(listDiv).appendChild(thumbnail).append(listDivInner);
+      listLink.appendChild(listDivInner);
+      ul.appendChild(li);
+    }
   });
 };
 
